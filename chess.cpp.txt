@@ -1,0 +1,2723 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+const int TOTAL_MAX_SIZE = 8;
+string PlayerGame[TOTAL_MAX_SIZE][TOTAL_MAX_SIZE];
+string ArrayOfOptionsInMode[TOTAL_MAX_SIZE];
+string ArrayOfComputerToStoreOptions[TOTAL_MAX_SIZE];
+int TotalSizeoftheArray = 0;
+int UserOptionArrayInSize = 0;
+bool IfAvailableOrNot(string A, int board = 0, int board1 = 1) {
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		int j = 0;
+		while (j < TOTAL_MAX_SIZE) {
+			switch (A[0] == PlayerGame[i][j][0])
+			{
+			case 1:
+				switch (A[1] == PlayerGame[i][j][1]) {
+				case 1:
+					return true;
+					break;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	return false;
+}
+int CompilerArrayInSetMode(int OPTions = 0) {
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ArrayOfComputerToStoreOptions[i] = "\0";
+		i++;
+	}
+
+	TotalSizeoftheArray = 0;
+	switch (IfAvailableOrNot("lR")) {
+	case 1:
+		ArrayOfComputerToStoreOptions[TotalSizeoftheArray] = "lR";
+		TotalSizeoftheArray++;
+		break;
+	}
+	switch (IfAvailableOrNot("rR")) {
+	case 1:
+		ArrayOfComputerToStoreOptions[TotalSizeoftheArray] = "rR";
+		TotalSizeoftheArray++;
+		break;
+	}
+	switch (IfAvailableOrNot("rB")) {
+	case 1:
+		ArrayOfComputerToStoreOptions[TotalSizeoftheArray] = "rB";
+		TotalSizeoftheArray++;
+		break;
+	}
+	switch (IfAvailableOrNot("lB")) {
+	case 1:
+		ArrayOfComputerToStoreOptions[TotalSizeoftheArray] = "lB";
+		TotalSizeoftheArray++;
+		break;
+	}
+	switch (IfAvailableOrNot("lH")) {
+	case 1:
+		ArrayOfComputerToStoreOptions[TotalSizeoftheArray] = "lH";
+		TotalSizeoftheArray++;
+		break;
+	}
+	switch (IfAvailableOrNot("rH")) {
+	case 1:
+		ArrayOfComputerToStoreOptions[TotalSizeoftheArray] = "rH";
+		TotalSizeoftheArray++;
+		break;
+	}
+	switch (IfAvailableOrNot(".k")) {
+	case 1:
+		ArrayOfComputerToStoreOptions[TotalSizeoftheArray] = ".k";
+		TotalSizeoftheArray++;
+		break;
+	}
+	switch (IfAvailableOrNot(".q")) {
+	case 1:
+		ArrayOfComputerToStoreOptions[TotalSizeoftheArray] = ".q";
+		TotalSizeoftheArray++;
+		break;
+	}
+	return 0;
+}
+int ToGetPointsInXYForm(string random_string_var, int& delta_X_Cordinate, int& delta_Y_cordinate, string Board = "Chess", string Board1 = "\0") {
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		int j = 0;
+		while (j < TOTAL_MAX_SIZE) {
+			switch (random_string_var[0] == PlayerGame[i][j][0]) {
+			case 1:
+				switch (random_string_var[1] == PlayerGame[i][j][1])
+				{
+				case 1:
+					delta_X_Cordinate = i;
+					delta_Y_cordinate = j;
+					break;
+				}
+
+			}
+			j++;
+		}
+		i++;
+	}
+	return 0;
+}
+int StartingOptionArray(int indexer = 0, int Cindex = 0) {
+	UserOptionArrayInSize = 0;
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ArrayOfOptionsInMode[i] = "\0";
+		i++;
+	}
+	return 0;
+}
+int IA(int current_idx = 0, int Cindex = 0, int Nindex = 0) {
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		int j = 0;
+		while (j < TOTAL_MAX_SIZE) {
+			*(*(PlayerGame + i) + j) = "  ";
+			j++;
+		}
+		i++;
+	}
+	return 0;
+}
+int MyStepOne(int current_idx = 7, int indexer = 0, int CIndex = 1) {
+	PlayerGame[indexer][indexer] = "LR";
+	PlayerGame[current_idx][indexer] = "lR";
+	PlayerGame[indexer][CIndex] = "LH";
+	PlayerGame[current_idx][CIndex] = "lH";
+	PlayerGame[indexer][CIndex + 1] = "LB";
+	PlayerGame[current_idx][CIndex + 1] = "lB";
+	PlayerGame[indexer][CIndex + CIndex + CIndex] = ".Q";
+	PlayerGame[current_idx][CIndex + CIndex + CIndex] = ".q";
+	PlayerGame[indexer][4] = ".K";
+	PlayerGame[current_idx][4] = ".k";
+	PlayerGame[indexer][5] = "RB";
+	PlayerGame[current_idx][5] = "rB";
+	PlayerGame[indexer][6] = "RH";
+	PlayerGame[current_idx][6] = "rH";
+	PlayerGame[indexer][7] = "RR";
+	PlayerGame[current_idx][current_idx] = "rR";
+	return 0;
+}
+void Function_Chess(int R = 9)
+{
+	if (R == 8)
+	{
+		cout << "Invalid Input You Put:: \n";
+		while (1)
+		{
+			cout << "Enter Agian : ";
+			cin >> R; if (R == 0) break;
+		}
+
+	}
+}
+int ToShowUserAllBoard(int CurrentIndex = TOTAL_MAX_SIZE) {
+	cout << "()************** CHESS BOARD ***********()\n";
+	cout << "()**************************************()\n";
+	for (int i = 0; i < CurrentIndex; i++) {
+		cout << "        |";
+		for (int j = 0; j < CurrentIndex; j++) {
+			cout << *(*(PlayerGame + i) + j) << "|";
+		}
+		cout << "\n";
+	}
+	cout << "()*************************************()\n";
+	return 0;
+}
+
+int WhatIHaveLeftWith() {
+	StartingOptionArray();
+	cout << "\n\n";
+	cout << "()*********** WhatIHaveLeftWith ***************()\n";
+	cout << "()**** ---- Pick One of Them To Move ------****()\n";
+	switch (IfAvailableOrNot("LR")) {
+	case 1:
+		cout << "Left Rock Option (LR) \n";
+		ArrayOfOptionsInMode[UserOptionArrayInSize] = "LR";
+		UserOptionArrayInSize++;
+		break;
+	}
+	switch (IfAvailableOrNot("RR")) {
+	case 1:
+		cout << "Right Rock Option (RR) \n";
+		ArrayOfOptionsInMode[UserOptionArrayInSize] = "RR";
+		UserOptionArrayInSize++;
+		break;
+	}
+	switch (IfAvailableOrNot("LB")) {
+	case 1:
+		cout << "Left Bishop Option (LB) \n";
+		ArrayOfOptionsInMode[UserOptionArrayInSize] = "LB";
+		UserOptionArrayInSize++;
+		break;
+	}
+	switch (IfAvailableOrNot("RB")) {
+	case 1:
+		cout << "Right Bishop Option (RB) \n";
+		ArrayOfOptionsInMode[UserOptionArrayInSize] = "RB";
+		UserOptionArrayInSize++;
+		break;
+	}
+	switch (IfAvailableOrNot("LH")) {
+	case 1:
+		cout << "Left Knight/Horse Option (LH) \n";
+		ArrayOfOptionsInMode[UserOptionArrayInSize] = "LH";
+		UserOptionArrayInSize++;
+		break;
+	}
+	switch (IfAvailableOrNot("RH")) {
+	case 1:
+		cout << "Right Knight/Horse Option (RH) \n";
+		ArrayOfOptionsInMode[UserOptionArrayInSize] = "RH";
+		UserOptionArrayInSize++;
+		break;
+	}
+	switch (IfAvailableOrNot(".K")) {
+	case 1:
+		cout << "King Option (K) \n";
+		ArrayOfOptionsInMode[UserOptionArrayInSize] = ".K";
+		UserOptionArrayInSize++;
+		break;
+	}
+	switch (IfAvailableOrNot(".Q")) {
+	case 1:
+		cout << "Queen Option (Q) \n";
+		ArrayOfOptionsInMode[UserOptionArrayInSize] = ".Q";
+		UserOptionArrayInSize++;
+		break;
+	}
+
+	cout << "Press Any Of the Button using keywords such as LR RB .. \n";
+	cout << "Enter : ";
+	return 0;
+}
+
+bool CheckifOptionAvailable(string INPUT_str, int fast = 0) {
+
+	int i = 0;
+	while (i < UserOptionArrayInSize) {
+		switch (INPUT_str[0] == ArrayOfOptionsInMode[i][0] && INPUT_str[1] == ArrayOfOptionsInMode[i][1])
+		{
+		case 1:
+			return true;
+			break;
+		}
+		i++;
+	}
+	return false;
+}
+int KingMoveableOrNot(int& delta_X_Cordinate, int& delta_Y_cordinate, int t = 0, int y = 7) {
+
+	ToGetPointsInXYForm(".K", delta_Y_cordinate, delta_X_Cordinate);
+
+	switch (delta_X_Cordinate - 1 >= t && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) == "  ")
+	{
+	case 1:
+		*(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) = " +";
+		break;
+	}
+
+	switch (delta_Y_cordinate - 1 >= t && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] == "  ")
+	{
+	case 1:
+		PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] = " +";
+		break;
+	}
+
+	switch (delta_Y_cordinate + 1 <= y && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] == "  ")
+	{
+	case 1:
+		PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] = " +";
+		break;
+	}
+	switch (delta_X_Cordinate + 1 <= y && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] == "  ")
+	{
+	case 1:
+		PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate + 1 <= y && delta_Y_cordinate + 1 <= y && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] == "  ")
+	{
+	case 1:
+		PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] = " +";
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= t && delta_Y_cordinate - 1 >= t && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] == "  ")
+	{
+	case 1:
+		PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate - 1 >= t && delta_Y_cordinate + 1 <= y && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) == "  ")
+	{
+	case 1:
+		*(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate + 1 <= y && delta_Y_cordinate - 1 >= t && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] == "  ")
+	{
+	case 1:
+		PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] = " +";
+		break;
+	}
+	return 0;
+}
+
+int MovingMyKingINXY(int& delta_Y_cordinate, int& delta_X_Cordinate, int Z = 0, int G = 0) {
+	string ITEMS[TOTAL_MAX_SIZE];
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ITEMS[i] = "\0";
+		i++;
+	}
+
+	int current_idx = 0;
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != ".Q" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LH" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RH" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RR" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LB" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RB") {
+	case 1:
+		cout << "Step Forward : (SF)\n";
+		ITEMS[current_idx] = "SF";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != ".Q" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RB") {
+	case 1:
+		cout << "Step Back : (SB)\n";
+		ITEMS[current_idx] = "SB";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RB") {
+	case 1:
+		cout << "Step Down : (SD)\n";
+		ITEMS[current_idx] = "SD";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RB") {
+	case 1:
+		cout << "Step Up: (SU)\n";
+		ITEMS[current_idx] = "SU";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LH" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LR") {
+	case 1:
+		cout << "Step Forward Down: (FD) \n";
+		ITEMS[current_idx] = "FD";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LR") {
+	case 1:
+		cout << "Step Forward Up: (FU) \n";
+		ITEMS[current_idx] = "FU";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LH" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LR") {
+	case 1:
+		cout << "Step Back Down : (BD)\n";
+		ITEMS[current_idx] = "BD";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LR") {
+	case 1:
+		cout << "Step Back Up: (Bu)\n";
+		ITEMS[current_idx] = "BU";
+		current_idx++;
+		break;
+	}
+	cout << "Enter Any Option : ";
+	string random_string_var = "\0";
+	cin >> random_string_var;
+	bool bool_VAR_checker = true;
+	for (int a = 0; bool_VAR_checker; a++) {
+		for (int i = 0; i < current_idx; i++) {
+			switch (random_string_var[0] == ITEMS[i][0] && random_string_var[1] == ITEMS[i][1] && random_string_var[2] == '\0') {
+			case 1:
+				bool_VAR_checker = false;
+				break;
+			}
+		}
+		switch (bool_VAR_checker) {
+		case 1:
+			cout << "Please Enter A valid Input :  ";
+			cin >> random_string_var;
+			break;
+		}
+	}
+	switch (random_string_var == "SB") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "SF") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "SD") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "SU") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "BU") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate - 1;
+		delta_Y_cordinate = delta_Y_cordinate - 1;
+		Function_Chess();
+		break;
+	}
+	switch (random_string_var == "FU") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate - 1;
+		delta_Y_cordinate = delta_Y_cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "FD") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate + 1;
+		delta_Y_cordinate = delta_Y_cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "BD") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate + 1;
+		delta_Y_cordinate = delta_Y_cordinate - 1;
+		break;
+	}
+	return 0;
+}
+int PlayingInitialPosition(int& delta_X_Cordinate, int& delta_Y_cordinate, string random_string_var, int dumy = 0, int right = 0) {
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		int j = 0;
+		while (j < TOTAL_MAX_SIZE) {
+			switch (*(*(PlayerGame + i) + j) == " +") {
+			case 1:
+				*(*(PlayerGame + i) + j) = "  ";
+				break;
+			}
+
+
+			switch (*(*(PlayerGame + i) + j) == random_string_var) {
+			case 1:
+				*(*(PlayerGame + i) + j) = "  ";
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+	PlayerGame[delta_Y_cordinate][delta_X_Cordinate] = random_string_var;
+
+	return 0;
+}
+int QueenMoveableOrNot(int& delta_X_Cordinate, int& delta_Y_cordinate, int temp = 0, int dumy = 0, int Extra = 0) {
+	ToGetPointsInXYForm(".Q", delta_Y_cordinate, delta_X_Cordinate);
+	int i = 0;
+	while (i < delta_X_Cordinate) {
+		switch (*(*(PlayerGame + delta_Y_cordinate) + i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate) + i) = " +";
+			break;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < delta_Y_cordinate) {
+		switch (*(*(PlayerGame + i) + delta_X_Cordinate) == "  ") {
+		case 1:
+			*(*(PlayerGame + i) + delta_X_Cordinate) = " +";
+			break;
+		}
+		i++;
+	}
+	i = delta_X_Cordinate + 1;
+	while (i < TOTAL_MAX_SIZE) {
+		switch (*(*(PlayerGame + delta_Y_cordinate) + i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate) + i) = " +";
+			break;
+		}
+		i++;
+
+	}
+	i = delta_Y_cordinate + 1;
+	while (i < TOTAL_MAX_SIZE) {
+		switch (*(*(PlayerGame + i) + delta_X_Cordinate) == "  ") {
+		case 1:
+			*(*(PlayerGame + i) + delta_X_Cordinate) = " +";
+			break;
+		}
+		i++;
+	}
+
+	i = 1;
+	while (1) {
+		if (delta_Y_cordinate - i < 0) break;
+		if (delta_X_Cordinate - i < 0) break;
+
+		switch (*(*(PlayerGame + delta_Y_cordinate - i) + delta_X_Cordinate - i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate - i) + delta_X_Cordinate - i) = " +";
+			break;
+		}
+		i++;
+
+	}
+	i = 1;
+	while (1) {
+		if (delta_Y_cordinate + i > 7) break;
+		if (delta_X_Cordinate + i > 7) break;
+		switch (PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate + i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate + i] = " +";
+			break;
+		}
+		i++;
+
+	}
+	i = 1;
+	while (1) {
+		if (delta_Y_cordinate + i > 7) break;
+		if (delta_X_Cordinate - i < 0) break;
+		switch (PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate - i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate - i] = " +";
+			break;
+		}
+		i++;
+
+	}
+	i = 1;
+	while (1) {
+		if (delta_Y_cordinate - i < 0) break;
+		if (delta_X_Cordinate + i > 7) break;
+		switch (PlayerGame[delta_Y_cordinate - i][delta_X_Cordinate + i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate - i][delta_X_Cordinate + i] = " +";
+			break;
+		}
+		i++;
+	}
+	return 0;
+}
+int MovingMyQueenInXY(int& delta_Y_cordinate, int& delta_X_Cordinate, int extra = 0, double du = 0.0) {
+	string ITEMS[TOTAL_MAX_SIZE];
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ITEMS[i] = "\0";
+		i++;
+	}
+	int current_idx = 0;
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != ".K" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LH" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RH" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RR" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LB" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RB") {
+	case 1:
+		cout << "Step Forward : (SF)\n";
+		ITEMS[current_idx] = "SF";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RB") {
+	case 1:
+		cout << "Step Back : (SB)\n";
+		ITEMS[current_idx] = "SB";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RB") {
+	case 1:
+		cout << "Step Down : (SD)\n";
+		ITEMS[current_idx] = "SD";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RB") {
+	case 1:
+		cout << "Step Up: (SU)\n";
+		ITEMS[current_idx] = "SU";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LH" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LR") {
+	case 1:
+		cout << "Step Forward Down: (FD) \n";
+		ITEMS[current_idx] = "FD";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LR") {
+	case 1:
+		cout << "Step Forward Up: (FU) \n";
+		ITEMS[current_idx] = "FU";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LH" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LR") {
+	case 1:
+		cout << "Step Back Down : (BD)\n";
+		ITEMS[current_idx] = "BD";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LR") {
+	case 1:
+		cout << "Step Back Up: (Bu)\n";
+		ITEMS[current_idx] = "BU";
+		current_idx++; break;
+	}
+	cout << "Enter Any Option : ";
+	string random_string_var = "\0";
+	cin >> random_string_var;
+	bool bool_VAR_checker = true;
+	while (bool_VAR_checker == true) {
+
+		int i = 0;
+		while (i < current_idx) {
+			if (random_string_var[0] == ITEMS[i][0] && random_string_var[1] == ITEMS[i][1] && random_string_var[2] == '\0')
+				bool_VAR_checker = false;
+			i++;
+		}
+		if (bool_VAR_checker == true) {
+			cout << "Please Enter A valid Input :  ";
+			cin >> random_string_var;
+		}
+	}
+	switch (random_string_var == "BU") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves;
+		for (;;) {
+			Function_Chess();
+			if (delta_X_Cordinate - Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate - Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		delta_Y_cordinate = delta_Y_cordinate - Moves;
+		break;
+	}
+	switch (random_string_var == "FD") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves;
+		for (;;) {
+			Function_Chess();
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate + Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate + Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves;
+		delta_Y_cordinate = delta_Y_cordinate + Moves;
+		break;
+	}
+	switch (random_string_var == "BD") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves = 0;
+		cin >> Moves;
+		for (;;) {
+			Function_Chess();
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves;
+		delta_Y_cordinate = delta_Y_cordinate - Moves;
+		break;
+	}
+	switch (random_string_var == "FU") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves;
+		for (;;)
+		{
+			Function_Chess();
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		delta_Y_cordinate = delta_Y_cordinate + Moves; break;
+	}
+	switch (random_string_var == "SB") {
+	case 1:
+		cout << "How Many Moves Back : ";
+		int Moves = 0;
+		cin >> Moves; Function_Chess();
+		for (;;) {
+			if (delta_X_Cordinate - Moves >= 0 && delta_X_Cordinate - Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		break;
+	}
+	switch (random_string_var == "SF") {
+	case 1:
+		cout << "How Many Moves Forward : ";
+		int Moves = 0;
+		cin >> Moves;
+		for (;;) {
+			if (delta_X_Cordinate + Moves >= 0 && delta_X_Cordinate + Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves;
+		break;
+	}
+	switch (random_string_var == "SU") {
+	case 1:
+		cout << "How Many Moves UP : ";
+		int Moves = 0;
+		cin >> Moves;
+		while (1) {
+			if (delta_Y_cordinate - Moves >= 0 && delta_Y_cordinate - Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_Y_cordinate = delta_Y_cordinate - Moves;
+		break;
+	}
+	switch (random_string_var == "SD") {
+	case 1:
+		cout << "How Many Moves Down : ";
+		int Moves = 0;
+		cin >> Moves;
+		for (;;) {
+			if (delta_Y_cordinate + Moves >= 0 && delta_Y_cordinate + Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_Y_cordinate = delta_Y_cordinate + Moves; break;
+	}
+	return 0;
+}
+int  RockMoveableOrNot(int& delta_X_Cordinate, int& delta_Y_cordinate, int extra = 0, float board = 0.0) {
+	ToGetPointsInXYForm("LR", delta_Y_cordinate, delta_X_Cordinate);
+	int i = 0;
+
+	while (i < delta_X_Cordinate) {
+		switch (*(*(PlayerGame + delta_Y_cordinate) + i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate) + i) = " +";
+			break;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < delta_Y_cordinate) {
+		switch (*(*(PlayerGame + i) + delta_X_Cordinate) == "  ") {
+		case 1:
+			*(*(PlayerGame + i) + delta_X_Cordinate) = " +";
+			break;
+		}
+		i++;
+	}
+
+	i = delta_X_Cordinate + 1;
+	while (i < TOTAL_MAX_SIZE) {
+		switch (*(*(PlayerGame + delta_Y_cordinate) + i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate) + i) = " +";
+			break;
+		}
+		i++;
+
+	}
+
+	i = delta_Y_cordinate + 1;
+	while (i < TOTAL_MAX_SIZE) {
+		switch (*(*(PlayerGame + i) + delta_X_Cordinate) == "  ") {
+		case 1:
+			*(*(PlayerGame + i) + delta_X_Cordinate) = " +";
+			break;
+		}
+		i++;
+	}
+	return 0;
+}
+int MovingMyRockInXY(int& delta_Y_cordinate, int& delta_X_Cordinate, int dul = 0, double y = 0.0) {
+	string ITEMS[TOTAL_MAX_SIZE];
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ITEMS[i] = "\0";
+		i++;
+	}
+	int current_idx = 0;
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != ".K" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LH" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RH" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RR" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LB" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RB") {
+	case 1:
+		cout << "Step Forward : (SF)\n";
+		ITEMS[current_idx] = "SF";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RB") {
+	case 1:
+		cout << "Step Back : (SB)\n";
+		ITEMS[current_idx] = "SB";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RB") {
+	case 1:
+		cout << "Step Down : (SD)\n";
+		ITEMS[current_idx] = "SD";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RB") {
+	case 1:
+		cout << "Step Up: (SU)\n";
+		ITEMS[current_idx] = "SU";
+		current_idx++;
+		break;
+	}
+	cout << "Enter Any Option : ";
+	string random_string_var = "\0";
+	cin >> random_string_var;
+	bool bool_VAR_checker = true;
+	while (bool_VAR_checker) {
+
+		int i = 0;
+		while (i < current_idx) {
+			if (random_string_var[0] == ITEMS[i][0] && random_string_var[1] == ITEMS[i][1] && random_string_var[2] == '\0')
+				bool_VAR_checker = false;
+			i++;
+		}
+		if (bool_VAR_checker) {
+			cout << "Please Enter A valid Input :  ";
+			cin >> random_string_var;
+		}
+	}
+	switch (random_string_var == "SB") {
+	case 1:
+		cout << "How Many Moves Back : ";
+		int Moves = 0;
+		cin >> Moves;
+		while (1) {
+			if (delta_X_Cordinate - Moves >= 0 && delta_X_Cordinate - Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		break;
+	}
+	switch (random_string_var == "SF") {
+	case 1:
+		cout << "How Many Moves Forward : ";
+		int Moves = 0;
+		cin >> Moves;
+		while (1) {
+			if (delta_X_Cordinate + Moves >= 0 && delta_X_Cordinate + Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves;  break;
+	}
+	switch (random_string_var == "SU") {
+	case 1:
+		cout << "How Many Moves UP : ";
+		int Moves = 0;
+		cin >> Moves;
+		while (1) {
+			if (delta_Y_cordinate - Moves >= 0 && delta_Y_cordinate - Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_Y_cordinate = delta_Y_cordinate - Moves; break;
+	}
+	switch (random_string_var == "SD") {
+	case 1:
+		cout << "How Many Moves Down : ";
+		int Moves = 0;
+		cin >> Moves;
+		while (1) {
+			if (delta_Y_cordinate + Moves >= 0 && delta_Y_cordinate + Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_Y_cordinate = delta_Y_cordinate + Moves; break;
+	}
+	return 0;
+}
+int CheckRock1MoveLocation(int& delta_X_Cordinate, int& delta_Y_cordinate) {
+	ToGetPointsInXYForm("RR", delta_Y_cordinate, delta_X_Cordinate);
+	int i = 0;
+	while (i < delta_X_Cordinate) {
+		switch (*(*(PlayerGame + delta_Y_cordinate) + i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate) + i) = " +";
+			break;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < delta_Y_cordinate) {
+		switch (*(*(PlayerGame + i) + delta_X_Cordinate) == "  ") {
+		case 1:
+			*(*(PlayerGame + i) + delta_X_Cordinate) = " +";
+			break;
+		}
+		i++;
+
+	}
+
+	i = delta_X_Cordinate + 1;
+	while (i < TOTAL_MAX_SIZE) {
+		switch (*(*(PlayerGame + delta_Y_cordinate) + i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate) + i) = " +";
+			break;
+		}
+		i++;
+	}
+
+	i = delta_Y_cordinate + 1;
+	while (i < TOTAL_MAX_SIZE)
+	{
+		switch (*(*(PlayerGame + i) + delta_X_Cordinate) == "  ") {
+		case 1:
+			*(*(PlayerGame + i) + delta_X_Cordinate) = " +";
+			break;
+		}
+		i++;
+	}
+	return 0;
+}
+int MovingMyRockInXY1(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	string ITEMS[TOTAL_MAX_SIZE];
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ITEMS[i] = "\0";
+		i++;
+	}
+
+	int current_idx = 0;
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != ".K" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LH" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RH" && *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate + 1) + delta_Y_cordinate) != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate] != "RB") {
+	case 1:
+		cout << "Step Forward : (SF)\n";
+		ITEMS[current_idx] = "SF";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "LB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate) != "RB") {
+	case 1:
+		cout << "Step Back : (SB)\n";
+		ITEMS[current_idx] = "SB";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate + 1) != "RB") {
+	case 1:
+		cout << "Step Down : (SD)\n";
+		ITEMS[current_idx] = "SD";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RH" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LR"
+		&& *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate) + delta_Y_cordinate - 1) != "RB") {
+	case 1:
+		cout << "Step Up: (SU)\n";
+		ITEMS[current_idx] = "SU";
+		current_idx++;
+		break;
+	}
+	cout << "Enter Any Option : ";
+	string random_string_var = "\0";
+	cin >> random_string_var;
+	bool bool_VAR_checker = true;
+	while (bool_VAR_checker)
+	{
+
+		int i = 0;
+		while (i < current_idx)
+		{
+			if (random_string_var[0] == ITEMS[i][0] && random_string_var[1] == ITEMS[i][1] && random_string_var[2] == '\0')
+				bool_VAR_checker = false;
+			i++;
+		}
+		if (bool_VAR_checker)
+		{
+			cout << "Please Enter A valid Input :  ";
+			cin >> random_string_var;
+		}
+	}
+	switch (random_string_var == "SB") {
+	case 1:
+		cout << "How Many Moves Back : ";
+		int Moves = 0;
+		cin >> Moves;
+		while (1) {
+			if (delta_X_Cordinate - Moves >= 0 && delta_X_Cordinate - Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		break;
+	}
+	switch (random_string_var == "SF") {
+	case 1:
+		cout << "How Many Moves Forward : ";
+		int Moves = 0;
+		cin >> Moves;
+		while (1) {
+			if (delta_X_Cordinate + Moves >= 0 && delta_X_Cordinate + Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves; break;
+	}
+	switch (random_string_var == "SU") {
+	case 1:
+		cout << "How Many Moves UP : ";
+		int Moves = 0;
+		cin >> Moves;
+		for (;;) {
+			if (delta_Y_cordinate - Moves >= 0 && delta_Y_cordinate - Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_Y_cordinate = delta_Y_cordinate - Moves; break;
+	}
+	switch (random_string_var == "SD") {
+	case 1:
+		cout << "How Many Moves Down : ";
+		int Moves = 0;
+		cin >> Moves;
+		for (;;) {
+			if (delta_Y_cordinate + Moves >= 0 && delta_Y_cordinate + Moves <= 7) break;
+			cout << "You Enter Invalid Option (Press Again) : ";
+			cin >> Moves;
+		}
+		delta_Y_cordinate = delta_Y_cordinate + Moves; break;
+	}
+	return 0;
+}
+int BishopMoveableOrNot(int& delta_X_Cordinate, int& delta_Y_cordinate) {
+	ToGetPointsInXYForm("LB", delta_Y_cordinate, delta_X_Cordinate);
+	int i = 1;
+	while (1) {
+		if (delta_Y_cordinate - i < 0) break;
+		if (delta_X_Cordinate - i < 0) break;
+
+		switch (*(*(PlayerGame + delta_Y_cordinate - i) + delta_X_Cordinate - i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate - i) + delta_X_Cordinate - i) = " +";
+			break;
+		}
+		i++;
+	}
+	i = 1;
+	for (;;) {
+		if (delta_Y_cordinate + i > 7) break;
+		if (delta_X_Cordinate + i > 7) break;
+		switch (PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate + i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate + i] = " +";
+			break;
+		}
+		i++;
+	}
+	i = 1;
+	for (;;) {
+		if (delta_Y_cordinate + i > 7) break;
+		if (delta_X_Cordinate - i < 0) break;
+		switch (PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate - i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate - i] = " +";
+			break;
+		}
+		i++;
+	}
+	i = 1;
+	for (;;) {
+		if (delta_Y_cordinate - i < 0) break;
+		if (delta_X_Cordinate + i > 7) break;
+		switch (PlayerGame[delta_Y_cordinate - i][delta_X_Cordinate + i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate - i][delta_X_Cordinate + i] = " +";
+			break;
+		}
+		i++;
+	}
+	return 0;
+}
+int MovingMyBishopInXY(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	string ITEMS[TOTAL_MAX_SIZE];
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ITEMS[i] = "\0";
+		i++;
+	}
+	int current_idx = 0;
+
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LH" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LR") {
+	case 1:
+		cout << "Step Forward Down: (FD) \n";
+		ITEMS[current_idx] = "FD";
+		current_idx++; break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LR") {
+	case 1:
+		cout << "Step Forward Up: (FU) \n";
+		ITEMS[current_idx] = "FU";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LH" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LR") {
+	case 1:
+		cout << "Step Back Down : (BD)\n";
+		ITEMS[current_idx] = "BD";
+		current_idx++; break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LR") {
+	case 1:
+		cout << "Step Back Up: (Bu)\n";
+		ITEMS[current_idx] = "BU";
+		current_idx++;
+		break;
+	}
+	cout << "Enter Any Option : ";
+	string random_string_var = "\0";
+	cin >> random_string_var;
+	bool bool_VAR_checker = true;
+	while (bool_VAR_checker) {
+
+		for (int i = 0; i < current_idx; i++) {
+			if (random_string_var[0] == ITEMS[i][0] && random_string_var[1] == ITEMS[i][1] && random_string_var[2] == '\0')
+				bool_VAR_checker = false;
+		}
+		if (bool_VAR_checker) {
+			cout << "Please Enter A valid Input :  ";
+			cin >> random_string_var;
+			Function_Chess();
+		}
+	}
+	switch (random_string_var == "BU") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves;
+		for (;;) {
+			if (delta_X_Cordinate - Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate - Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		delta_Y_cordinate = delta_Y_cordinate - Moves;
+		break; Function_Chess();
+	}
+	switch (random_string_var == "FD") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves; Function_Chess();
+		for (;;) {
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate + Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate + Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves;
+		delta_Y_cordinate = delta_Y_cordinate + Moves;
+		break;
+	}
+	switch (random_string_var == "BD") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves = 0;
+		cin >> Moves;
+		for (;;) {
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves;
+		delta_Y_cordinate = delta_Y_cordinate - Moves;
+		//cout<<delta_X_Cordinate<<delta_Y_cordinate<<endl; 
+		break;
+	}
+	switch (random_string_var == "FU") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves;
+		for (;;) {
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		delta_Y_cordinate = delta_Y_cordinate + Moves;
+		break;
+	}
+	return 0;
+}
+int Bishop1MoveableOrNot(int& delta_X_Cordinate, int& delta_Y_cordinate) {
+	ToGetPointsInXYForm("RB", delta_Y_cordinate, delta_X_Cordinate);
+	int i = 1;
+	for (;;) {
+		if (delta_Y_cordinate - i < 0) break;
+		if (delta_X_Cordinate - i < 0) break;
+
+		switch (*(*(PlayerGame + delta_Y_cordinate - i) + delta_X_Cordinate - i) == "  ") {
+		case 1:
+			*(*(PlayerGame + delta_Y_cordinate - i) + delta_X_Cordinate - i) = " +";
+			break;
+		}
+		i++;
+	}
+	i = 1;
+	for (;;) {
+		if (delta_Y_cordinate + i > 7) break;
+		if (delta_X_Cordinate + i > 7) break;
+		switch (PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate + i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate + i] = " +";
+			break;
+		}
+		i++;
+
+	}
+	i = 1;
+	for (;;) {
+		if (delta_Y_cordinate + i > 7) break;
+		if (delta_X_Cordinate - i < 0) break;
+		switch (PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate - i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate + i][delta_X_Cordinate - i] = " +";
+			break;
+		}
+		i++;
+
+	}
+	i = 1;
+	for (;;) {
+		if (delta_Y_cordinate - i < 0) break;
+		if (delta_X_Cordinate + i > 7) break;
+		switch (PlayerGame[delta_Y_cordinate - i][delta_X_Cordinate + i] == "  ") {
+		case 1:
+			PlayerGame[delta_Y_cordinate - i][delta_X_Cordinate + i] = " +";
+			break;
+		}
+		i++;
+	}
+	return 0;
+}
+int MovingMyBishopInXY1(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	string ITEMS[TOTAL_MAX_SIZE];
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ITEMS[i] = "\0";
+		i++;
+	}
+	int current_idx = 0;
+
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LH" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 1] != "LR") {
+	case 1:
+		cout << "Step Forward Down: (FD) \n";
+		ITEMS[current_idx] = "FD";
+		current_idx++; break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate + 1) != "LR") {
+	case 1:
+		cout << "Step Forward Up: (FU) \n";
+		ITEMS[current_idx] = "FU";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LH" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 1] != "LR") {
+	case 1:
+		cout << "Step Back Down : (BD)\n";
+		ITEMS[current_idx] = "BD";
+		current_idx++; break;
+	}
+	switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LH" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate - 1) + delta_Y_cordinate - 1) != "LR") {
+	case 1:
+		cout << "Step Back Up: (Bu)\n";
+		ITEMS[current_idx] = "BU";
+		current_idx++; break;
+	}
+	cout << "Enter Any Option : ";
+	string random_string_var = "\0";
+	cin >> random_string_var;
+	bool bool_VAR_checker = true;
+	while (bool_VAR_checker == true) {
+		int i = 0;
+		while (i < current_idx) {
+			if (random_string_var[0] == ITEMS[i][0] && random_string_var[1] == ITEMS[i][1] && random_string_var[2] == '\0')
+				bool_VAR_checker = false;
+			i++;
+		}
+		if (bool_VAR_checker) {
+			cout << "Please Enter A valid Input :  ";
+			cin >> random_string_var;
+		}
+	}
+	switch (random_string_var == "BU") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves;
+		for (;;) {
+			if (delta_X_Cordinate - Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate - Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		delta_Y_cordinate = delta_Y_cordinate - Moves; break;
+	}
+	switch (random_string_var == "FD") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves;
+		for (;;) {
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate + Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate + Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves;
+		delta_Y_cordinate = delta_Y_cordinate + Moves;
+		break;
+	}
+	switch (random_string_var == "BD") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves = 0;
+		cin >> Moves;
+		for (;;) {
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate + Moves;
+		delta_Y_cordinate = delta_Y_cordinate - Moves;
+		//cout<<delta_X_Cordinate<<delta_Y_cordinate<<endl; 
+		break;
+	}
+	switch (random_string_var == "FU") {
+	case 1:
+		cout << "How Many Moves : ";
+		int Moves;
+		cin >> Moves;
+		for (;;) {
+			if (delta_X_Cordinate + Moves <= 7 && delta_Y_cordinate - Moves <= 7 && delta_X_Cordinate + Moves >= 0 && delta_Y_cordinate - Moves >= 0) break;
+			cout << "Please Enter A valid Input :  ";
+			cin >> Moves;
+		}
+		delta_X_Cordinate = delta_X_Cordinate - Moves;
+		delta_Y_cordinate = delta_Y_cordinate + Moves;
+		break;
+	}
+	return 0;
+}
+int KnightMoveableOrNot(int& delta_X_Cordinate, int& delta_Y_cordinate) {
+	ToGetPointsInXYForm("LH", delta_Y_cordinate, delta_X_Cordinate);
+	switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 2] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 2] = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 2] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 2] = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 2] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 2] = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate - 2] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate - 2] = " +";
+		break;
+	}
+
+	switch (delta_Y_cordinate + 2 <= 7 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate + 1] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate + 1] = " +";
+		break;
+	}
+	switch (delta_Y_cordinate + 2 <= 7 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate - 1] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate - 1] = " +";
+		break;
+	}
+	switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate - 1] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate - 2][delta_X_Cordinate - 1] = " +";
+		break;
+	}
+
+	switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate - 1] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate - 2][delta_X_Cordinate + 1] = " +";
+		break;
+	}
+	return 0;
+}
+int MovingMyHorseInXY(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	string ITEMS[TOTAL_MAX_SIZE];
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ITEMS[i] = "\0";
+		i++;
+	}
+	int current_idx = 0;
+	switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "RH"
+		&& *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "LR") {
+	case 1:
+		cout << "Move Forward Up (FU) : \n";
+		ITEMS[current_idx] = "FU";
+		current_idx++; break;
+	}
+	switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != ".K" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "LB" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != ".Q" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "RB" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "RR" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "LR") {
+	case 1:
+		cout << "Move Forward Down (FD) : \n";
+		ITEMS[current_idx] = "FD";
+		current_idx++; break;
+	}
+	switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != ".K" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "LB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != ".Q" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "RB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "RR" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "LR") {
+	case 1:
+		cout << "Move Back Down (BD) : \n";
+		ITEMS[current_idx] = "BD";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != ".K" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "LB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "RH"
+		&& PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != ".Q" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "RB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "RR" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "LR") {
+	case 1:
+		cout << "Move Back Down (BU) : \n";
+		ITEMS[current_idx] = "BU";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "LR") {
+	case 1:
+		cout << "Move Up Forward (UF) : \n";
+		ITEMS[current_idx] = "UF";
+		current_idx++; break;
+	}
+	switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != ".K" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "LB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "RH"
+		&& PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != ".Q" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "RB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "RR" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "LR") {
+	case 1:
+		cout << "Move Up Back (UB) : \n";
+		ITEMS[current_idx] = "UB";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate + 2 >= 0 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "RH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "LR") {
+	case 1:
+		cout << "Move Down Forward (DF) : \n";
+		ITEMS[current_idx] = "DF";
+		current_idx++; break;
+	}
+	switch (delta_Y_cordinate + 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != ".K" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "LB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "RH"
+		&& PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != ".Q" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "RB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "RR" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "LR") {
+	case 1:
+		cout << "Move Up Back (DB) : \n";
+		ITEMS[current_idx] = "DB";
+		current_idx++;
+		break;
+	}
+	cout << "\nSelect (SB, SF, etc) : ";
+	string random_string_var = "\0";
+	cin >> random_string_var;
+	bool bool_VAR_checker = true;
+	while (bool_VAR_checker) {
+		int i = 0;
+		while (i < TOTAL_MAX_SIZE) {
+			if (random_string_var[0] == ITEMS[i][0] && random_string_var[1] == ITEMS[i][1] && random_string_var[2] == '\0')
+				bool_VAR_checker = false;
+			i++;
+		}
+		if (bool_VAR_checker) {
+			cout << "Please Enter A valid Input :  ";
+			cin >> random_string_var;
+		}
+	}
+	switch (random_string_var == "FU") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate + 2;
+		delta_Y_cordinate = delta_Y_cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "FD") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate + 2;
+		delta_Y_cordinate = delta_Y_cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "BD") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate - 2;
+		delta_Y_cordinate = delta_Y_cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "BU") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate - 2;
+		delta_Y_cordinate = delta_Y_cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "UF") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate - 2;
+		delta_X_Cordinate = delta_X_Cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "UB") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate - 2;
+		delta_X_Cordinate = delta_X_Cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "DB") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate + 2;
+		delta_X_Cordinate = delta_X_Cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "DF") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate + 2;
+		delta_X_Cordinate = delta_X_Cordinate + 1;
+		break;
+	}
+	return 0;
+}
+int CheckKnightMove1Location(int& delta_X_Cordinate, int& delta_Y_cordinate) {
+	ToGetPointsInXYForm("RH", delta_Y_cordinate, delta_X_Cordinate);
+	switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 2] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 2] = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 2] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 2] = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 2] == "  ")
+	{
+	case 1:
+		PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 2] = " +";
+		break;
+	}
+
+	switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate - 2] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate - 2] = " +";
+		break;
+	}
+	switch (delta_Y_cordinate + 2 <= 7 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate + 1] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate + 1] = " +";
+		break;
+	}
+	switch (delta_Y_cordinate + 2 <= 7 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate - 1] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate - 1] = " +";
+		break;
+	}
+	switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate - 1] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate - 2][delta_X_Cordinate - 1] = " +";
+		break;
+	}
+	switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_Y_cordinate + 2][delta_X_Cordinate - 1] == "  ") {
+	case 1:
+		PlayerGame[delta_Y_cordinate - 2][delta_X_Cordinate + 1] = " +";
+		break;
+	}
+	return 0;
+}
+int MovingMyHorseInXY1(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	string ITEMS[TOTAL_MAX_SIZE];
+
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		ITEMS[i] = "\0";
+		i++;
+	}
+	int current_idx = 0;
+	switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != ".K" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "LB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "LH"
+		&& *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != ".Q" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "RB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "RR" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "LR") {
+	case 1:
+		cout << "Move Forward Up (FU) : \n";
+		ITEMS[current_idx] = "FU";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != ".K" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "LB" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "LH"
+		&& PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != ".Q" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "RB" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "RR" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "LR") {
+	case 1:
+		cout << "Move Forward Down (FD) : \n";
+		ITEMS[current_idx] = "FD";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != ".K" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "LB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "LH"
+		&& PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != ".Q" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "RB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "RR" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "LR") {
+	case 1:
+		cout << "Move Back Down (BD) : \n";
+		ITEMS[current_idx] = "BD";
+		current_idx++;
+		break;
+	}
+	switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != ".K" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "LB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "LH"
+		&& PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != ".Q" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "RB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "RR" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "LR") {
+	case 1:
+		cout << "Move Back Down (BU) : \n";
+		ITEMS[current_idx] = "BU";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "LH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "LR") {
+	case 1:
+		cout << "Move Up Forward (UF) : \n";
+		ITEMS[current_idx] = "UF";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != ".K" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "LB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "LH"
+		&& PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != ".Q" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "RB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "RR" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "LR") {
+	case 1:
+		cout << "Move Up Back (UB) : \n";
+		ITEMS[current_idx] = "UB";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate + 2 >= 0 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != ".K" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "LB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "LH"
+		&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != ".Q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "RB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "RR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "LR") {
+	case 1:
+		cout << "Move Down Forward (DF) : \n";
+		ITEMS[current_idx] = "DF";
+		current_idx++;
+		break;
+	}
+	switch (delta_Y_cordinate + 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != ".K" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "LB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "LH"
+		&& PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != ".Q" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "RB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "RR" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "LR") {
+	case 1:
+		cout << "Move Up Back (DB) : \n";
+		ITEMS[current_idx] = "DB";
+		current_idx++;
+		break;
+	}
+	cout << "\nSelect (SB, SF, etc) : ";
+	string random_string_var = "\0";
+	cin >> random_string_var;
+	bool bool_VAR_checker = true;
+	while (bool_VAR_checker)
+	{
+		int i = 0;
+		while (i < TOTAL_MAX_SIZE) {
+			if (random_string_var[0] == ITEMS[i][0] && random_string_var[1] == ITEMS[i][1] && random_string_var[2] == '\0')
+				bool_VAR_checker = false;
+			i++;
+		}
+		if (bool_VAR_checker) {
+			cout << "Please Enter A valid Input :  ";
+			cin >> random_string_var;
+		}
+	}
+	switch (random_string_var == "FU") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate + 2;
+		delta_Y_cordinate = delta_Y_cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "FD") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate + 2;
+		delta_Y_cordinate = delta_Y_cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "BD") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate - 2;
+		delta_Y_cordinate = delta_Y_cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "BU") {
+	case 1:
+		delta_X_Cordinate = delta_X_Cordinate - 2;
+		delta_Y_cordinate = delta_Y_cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "UF") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate - 2;
+		delta_X_Cordinate = delta_X_Cordinate + 1;
+		break;
+	}
+	switch (random_string_var == "UB") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate - 2;
+		delta_X_Cordinate = delta_X_Cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "DB") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate + 2;
+		delta_X_Cordinate = delta_X_Cordinate - 1;
+		break;
+	}
+	switch (random_string_var == "DF") {
+	case 1:
+		delta_Y_cordinate = delta_Y_cordinate + 2;
+		delta_X_Cordinate = delta_X_Cordinate + 1;
+		break;
+	}
+	return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+int ComputerMovingHisKing(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+
+	ToGetPointsInXYForm(".k", delta_Y_cordinate, delta_X_Cordinate);
+	bool bool_VAR_checker = true;
+	for (; bool_VAR_checker == true;) {
+		int random_string_var = 1 + rand() % TOTAL_MAX_SIZE; //cout<<random_string_var;
+		switch (random_string_var == 1) {
+		case 1:
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != ".q" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lR"
+				&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rB") {
+			case 1:
+				delta_X_Cordinate = delta_X_Cordinate + 1;
+				bool_VAR_checker = false;
+				break;
+			}
+			break;
+		}
+		switch (random_string_var == 2) {
+		case 1:
+			switch (delta_X_Cordinate - 1 >= 0 && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != ".q" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lR"
+				&& *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rR" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lB" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rB") {
+			case 1:
+				delta_X_Cordinate = delta_X_Cordinate - 1;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 3) {
+		case 1:
+			switch (delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lR"
+				&& PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rR" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rB") {
+			case 1:
+				delta_Y_cordinate = delta_Y_cordinate + 1;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 4) {
+		case 1:
+			switch (delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lR"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rB") {
+			case 1:
+				delta_Y_cordinate = delta_Y_cordinate - 1;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 5) {
+		case 1:
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != ".q" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lR") {
+			case 1:
+				delta_X_Cordinate = delta_X_Cordinate + 1;
+				delta_Y_cordinate++;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 6) {
+		case 1:
+			switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != ".q" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rH"
+				&& *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lB" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rB" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rR" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lR") {
+			case 1:
+				delta_X_Cordinate--;
+				delta_Y_cordinate++;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 7) {
+		case 1:
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lR") {
+			case 1:
+				delta_X_Cordinate++;
+				delta_Y_cordinate--;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == TOTAL_MAX_SIZE) {
+		case 1:
+			switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lR") {
+			case 1:
+				delta_X_Cordinate--;
+				delta_Y_cordinate--;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+	}
+	return 0;
+}
+int ComputerMovingHerQueen(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	ToGetPointsInXYForm(".q", delta_Y_cordinate, delta_X_Cordinate);
+	bool bool_VAR_checker = true;
+	for (; bool_VAR_checker == true;) {
+		int random_string_var = 1 + rand() % TOTAL_MAX_SIZE; //cout<<random_string_var;
+		switch (random_string_var == 1) {
+		case 1:
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != ".k" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lR"
+				&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				while (1) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "lR"
+						&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 2) {
+		case 1:
+			switch (delta_X_Cordinate - 1 >= 0 && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != ".k" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lR"
+				&& *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rR" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lB" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "lR"
+						&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "rB")  break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR; bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 3) {
+		case 1:
+			switch (delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != ".k" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lR"
+				&& PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rR" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != ".k" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "lR"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "rR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 4) {
+		case 1:
+			switch (delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != ".k" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lR"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_Y_cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != ".k" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lR"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 5) {
+		case 1:
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != ".k" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 6) {
+		case 1:
+			switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != ".k" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rH"
+				&& *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lB" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rB" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rR" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate - temporary_VAR >= 0 && delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+		switch (random_string_var == 7) {
+		case 1:
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != ".k" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && delta_Y_cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+
+			}
+			break;
+		}
+		switch (random_string_var == TOTAL_MAX_SIZE) {
+		case 1:
+			switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != ".k" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_Y_cordinate - temporary_VAR >= 0 && delta_X_Cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+					cout << temporary_VAR << " ";
+				}
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+			break;
+		}
+	}
+	return 0;
+}
+int ComputerMovingHisRock(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	ToGetPointsInXYForm("lR", delta_Y_cordinate, delta_X_Cordinate);
+	bool bool_VAR_checker = true;
+	for (; bool_VAR_checker == true;) {
+		int random_string_var = 1 + rand() % 4; //cout<<random_string_var;
+		if (random_string_var == 1) {
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != ".q" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != ".k"
+				&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != ".k"
+						&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 2) {
+			switch (delta_X_Cordinate - 1 >= 0 && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != ".q" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != ".k"
+				&& *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rR" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lB" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != ".k"
+						&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 3) {
+			switch (delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != ".k"
+				&& PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rR" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != ".k"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "rR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 4) {
+			switch (delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != ".k"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_Y_cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != ".k"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "rR" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+	}
+	return 0;
+}
+int ComputerMovingHisRock1(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	ToGetPointsInXYForm("rR", delta_Y_cordinate, delta_X_Cordinate);
+	bool bool_VAR_checker = true;
+	for (; bool_VAR_checker == true;) {
+		int random_string_var = 1 + rand() % 4;
+		cout << random_string_var;
+		if (random_string_var == 1) {
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != ".q" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != ".k"
+				&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + 1] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != ".k"
+						&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "lR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate + temporary_VAR] != "rB")
+						break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		else if (random_string_var == 2) {
+			switch (delta_X_Cordinate - 1 >= 0 && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != ".q" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rH" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != ".k"
+				&& *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lR" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "lB" && *(*(PlayerGame + delta_Y_cordinate) + delta_X_Cordinate - 1) != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "rH" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != ".k"
+						&& PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "lR" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate][delta_X_Cordinate - temporary_VAR] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		else if (random_string_var == 3) {
+			switch (delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != ".k"
+				&& PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lR" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate] != "rB") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != ".k"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "lR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		else if (random_string_var == 4) {
+			switch (delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != ".k"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate] != "rB") {
+			case 1:
+				int temporary_VAR = 1 + rand() % 7;
+				while (1) {
+					if (delta_Y_cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != ".q" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "rH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != ".k"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lR" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "lB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate] != "rB") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+	}
+	return 0;
+}
+int ComputerMovingHisBishop(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	ToGetPointsInXYForm("lB", delta_Y_cordinate, delta_X_Cordinate);
+	bool bool_VAR_checker = true;
+	for (; bool_VAR_checker == true;) {
+		int random_string_var = 1 + rand() % 4;
+		cout << random_string_var;
+		if (random_string_var == 1) {
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != ".k" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != ".q" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 2) {
+			switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != ".k" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rH"
+				&& *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != ".q" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rB" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rR" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate - temporary_VAR >= 0 && delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 3) {
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != ".k" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lR") {
+				//delta_X_Cordinate++;
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && delta_Y_cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+
+			}
+		}
+		if (random_string_var == 4) {
+			switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != ".k" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_Y_cordinate - temporary_VAR >= 0 && delta_X_Cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+					cout << temporary_VAR << " ";
+				}
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+	}
+	return 0;
+}
+int ComputerMovingHisBishop1(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	ToGetPointsInXYForm("rB", delta_Y_cordinate, delta_X_Cordinate);
+	bool bool_VAR_checker = true;
+	for (; bool_VAR_checker == true;) {
+		int random_string_var = 1 + rand() % 4;
+
+		if (random_string_var == 1) {
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != ".k" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != ".q" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate + 1][delta_X_Cordinate + 1] != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 2) {
+			switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate + 1 < TOTAL_MAX_SIZE && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != ".k" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lH" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rH"
+				&& *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != ".q" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lB" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "rR" && *(*(PlayerGame + delta_Y_cordinate + 1) + delta_X_Cordinate - 1) != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate - temporary_VAR >= 0 && delta_Y_cordinate + temporary_VAR <= 7 && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate + temporary_VAR;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 3) {
+			switch (delta_X_Cordinate + 1 < TOTAL_MAX_SIZE && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != ".k" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate + 1] != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_X_Cordinate + temporary_VAR <= 7 && delta_Y_cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate + temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate + temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_X_Cordinate = delta_X_Cordinate + temporary_VAR;
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				bool_VAR_checker = false; break;
+
+			}
+		}
+		if (random_string_var == 4) {
+			switch (delta_X_Cordinate - 1 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != ".k" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lH" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rH"
+				&& PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != ".q" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lB" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "rR" && PlayerGame[delta_Y_cordinate - 1][delta_X_Cordinate - 1] != "lR") {
+			case 1:
+				int temporary_VAR;
+				temporary_VAR = 1 + rand() % 7;
+				for (;;) {
+					if (delta_Y_cordinate - temporary_VAR >= 0 && delta_X_Cordinate - temporary_VAR >= 0 && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".k" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lH" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rH"
+						&& PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != ".q" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lB" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "rR" && PlayerGame[delta_Y_cordinate - temporary_VAR][delta_X_Cordinate - temporary_VAR] != "lR") break;
+					temporary_VAR = 1 + rand() % 7;
+				}
+				delta_Y_cordinate = delta_Y_cordinate - temporary_VAR;
+				delta_X_Cordinate = delta_X_Cordinate - temporary_VAR;
+				bool_VAR_checker = false;
+				break;
+			}
+		}
+	}
+	return 0;
+}
+int ComputerMovingHisHorse(int& delta_Y_cordinate, int& delta_X_Cordinate) {
+	ToGetPointsInXYForm("lH", delta_Y_cordinate, delta_X_Cordinate);
+	bool bool_VAR_checker = true;
+	for (; bool_VAR_checker == true;) {
+		int random_string_var = 1 + rand() % TOTAL_MAX_SIZE;
+
+		if (random_string_var == 1) {
+			switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != ".k" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "lB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "rH"
+				&& *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != ".q" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "rB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "rR" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "lR") {
+			case 1:
+				delta_X_Cordinate += 2;
+				delta_Y_cordinate -= 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 2) {
+			switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != ".k" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "lB" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "rH"
+				&& PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != ".q" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "rB" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "rR" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "lR") {
+			case 1:
+				bool_VAR_checker = false;
+				delta_Y_cordinate += 1;
+				delta_X_Cordinate += 2;
+
+				break;
+			}
+		}
+		if (random_string_var == 3) {
+			switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != ".k" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "lB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate + 1] != "rH"
+				&& *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != ".q" && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != "rB" && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != "rR" && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != "lR") {
+			case 1:
+				delta_X_Cordinate -= 2;
+				delta_Y_cordinate += 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 4) {
+			switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != ".k" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "lB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "rH"
+				&& PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != ".q" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "rB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "rR" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "lR") {
+			case 1:
+				delta_X_Cordinate -= 2;
+				delta_Y_cordinate -= 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 5) {
+			switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != ".k" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "lB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "rH"
+				&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != ".q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "rB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "rR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "lR") {
+			case 1:
+				delta_Y_cordinate -= 2;
+				delta_X_Cordinate += 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 6) {
+			switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != ".k" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "lB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "rH"
+				&& PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != ".q" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "rB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "rR" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "lR") {
+			case 1:
+				delta_Y_cordinate -= 2;
+				delta_X_Cordinate -= 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 7) {
+			switch (delta_Y_cordinate + 2 <= 7 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != ".k" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "lB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "rH"
+				&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != ".q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "rB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "rR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "lR") {
+			case 1:
+				delta_Y_cordinate += 2;
+				delta_X_Cordinate += 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == TOTAL_MAX_SIZE) {
+			switch (delta_Y_cordinate + 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != ".k" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "lB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "rH"
+				&& PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != ".q" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "rB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "rR" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "lR") {
+			case 1:
+				delta_Y_cordinate += 2;
+				delta_X_Cordinate -= 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+	}
+	return 0;
+}
+int ComputerMovingHisHorse1(int& delta_Y_cordinate, int& delta_X_Cordinate, float temp = 0.0) {
+	ToGetPointsInXYForm("rH", delta_Y_cordinate, delta_X_Cordinate);
+	bool bool_VAR_checker = true;
+	for (; bool_VAR_checker == true;) {
+		int random_string_var = 1 + rand() % TOTAL_MAX_SIZE;
+		cout << random_string_var;
+		if (random_string_var == 1) {
+			switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate - 1 >= 0 && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != ".k" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "lB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "lH"
+				&& *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != ".q" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "rB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "rR" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate - 1) != "lR") {
+			case 1:
+				delta_X_Cordinate += 2;
+				delta_Y_cordinate -= 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 2) {
+			switch (delta_X_Cordinate + 2 <= 7 && delta_Y_cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != ".k" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "lB" && PlayerGame[delta_X_Cordinate + 2][delta_Y_cordinate + 1] != "lH"
+				&& *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate + 1) != ".q" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate + 1) != "rB" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate + 1) != "rR" && *(*(PlayerGame + delta_X_Cordinate + 2) + delta_Y_cordinate + 1) != "lR") {
+			case 1:
+				delta_X_Cordinate += 2;
+				delta_Y_cordinate += 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 3) {
+			switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate + 1 <= 7 && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != ".k" && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != "lB" && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != "lH"
+				&& *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != ".q" && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != "rB" && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != "rR" && *(*(PlayerGame + delta_X_Cordinate - 2) + delta_Y_cordinate + 1) != "lR") {
+			case 1:
+				delta_X_Cordinate -= 2;
+				delta_Y_cordinate += 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 4) {
+			switch (delta_X_Cordinate - 2 >= 0 && delta_Y_cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != ".k" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "lB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "lH"
+				&& PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != ".q" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "rB" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "rR" && PlayerGame[delta_X_Cordinate - 2][delta_Y_cordinate - 1] != "lR") {
+			case 1:
+				delta_X_Cordinate -= 2;
+				delta_Y_cordinate -= 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 5) {
+			switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != ".k" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "lB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "lH"
+				&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != ".q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "rB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "rR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate - 2] != "lR") {
+			case 1:
+				delta_Y_cordinate -= 2;
+				delta_X_Cordinate += 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 6) {
+			switch (delta_Y_cordinate - 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != ".k" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "lB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "lH"
+				&& PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != ".q" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "rB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "rR" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate - 2] != "lR") {
+			case 1:
+				delta_Y_cordinate -= 2;
+				delta_X_Cordinate -= 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == 7) {
+			switch (delta_Y_cordinate + 2 <= 7 && delta_X_Cordinate + 1 <= 7 && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != ".k" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "lB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "lH"
+				&& PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != ".q" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "rB" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "rR" && PlayerGame[delta_X_Cordinate + 1][delta_Y_cordinate + 2] != "lR") {
+			case 1:
+				delta_Y_cordinate += 2;
+				delta_X_Cordinate += 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+		if (random_string_var == TOTAL_MAX_SIZE) {
+			switch (delta_Y_cordinate + 2 >= 0 && delta_X_Cordinate - 1 >= 0 && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != ".k" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "lB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "lH"
+				&& PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != ".q" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "rB" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "rR" && PlayerGame[delta_X_Cordinate - 1][delta_Y_cordinate + 2] != "lR") {
+			case 1:
+				delta_Y_cordinate += 2;
+				delta_X_Cordinate -= 1;
+				bool_VAR_checker = false; break;
+			}
+		}
+	}
+	return 0;
+}
+bool tonotPlay() {
+	bool bool_VAR_checker = false;
+	int i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+
+		int j = 0;
+		while (j < TOTAL_MAX_SIZE) {
+			switch (*(*(PlayerGame + i) + j) == ".k") {
+			case 1:
+				bool_VAR_checker = true;
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+	if (bool_VAR_checker == false) {
+		cout << "You Win Compiler Have Lost ! \n";
+	}
+	bool flag1 = false;
+	i = 0;
+	while (i < TOTAL_MAX_SIZE) {
+		int j = 0;
+		while (j < TOTAL_MAX_SIZE) {
+			switch (*(*(PlayerGame + i) + j) == ".K") {
+			case 1:
+				flag1 = true;
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+	switch (flag1 == false) {
+	case 1:
+		cout << "You Lost Compiler Have win ! \n";
+		break;
+	}
+	switch (flag1 == true && bool_VAR_checker == true)
+	{
+	case 1:
+		return true;
+		break;
+	case 0:
+		return false;
+		break;
+	}
+
+}
+int startGame() {
+	IA();
+	MyStepOne();
+	cout << "()--------------WELCOME TO CHESS GAME ----------()\n";
+	cout << "Caps Letter are Representing You while Other Are representing Compiler : \n";
+	ToShowUserAllBoard();
+	int condition_confirm = 0;
+	for (;;) {
+		if (condition_confirm % 2 == 0) {
+			cout << "\n\nYour Turn \n";
+			WhatIHaveLeftWith();
+			string INPUT_str;
+			cin >> INPUT_str;
+			bool bool_VAR_checker = CheckifOptionAvailable(INPUT_str);
+			while (!bool_VAR_checker) {
+				cout << "Invalid : (Enter Again) ";
+				cin >> INPUT_str;
+				bool_VAR_checker = CheckifOptionAvailable(INPUT_str);
+			}
+			switch (INPUT_str == ".K") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				KingMoveableOrNot(delta_X_Cordinate, delta_Y_cordinate);
+				ToShowUserAllBoard();
+				MovingMyKingINXY(delta_X_Cordinate, delta_Y_cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, INPUT_str);
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (INPUT_str == ".Q") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				QueenMoveableOrNot(delta_X_Cordinate, delta_Y_cordinate);
+				ToShowUserAllBoard();
+				MovingMyQueenInXY(delta_X_Cordinate, delta_Y_cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, INPUT_str);
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (INPUT_str == "LR") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				RockMoveableOrNot(delta_X_Cordinate, delta_Y_cordinate);
+				ToShowUserAllBoard();
+				MovingMyRockInXY(delta_X_Cordinate, delta_Y_cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, INPUT_str);
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (INPUT_str == "RR") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				CheckRock1MoveLocation(delta_X_Cordinate, delta_Y_cordinate);
+				ToShowUserAllBoard();
+				MovingMyRockInXY1(delta_X_Cordinate, delta_Y_cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, INPUT_str);
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (INPUT_str == "LB") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				BishopMoveableOrNot(delta_X_Cordinate, delta_Y_cordinate);
+				ToShowUserAllBoard();
+				MovingMyBishopInXY(delta_X_Cordinate, delta_Y_cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, INPUT_str);
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (INPUT_str == "RB") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				Bishop1MoveableOrNot(delta_X_Cordinate, delta_Y_cordinate);
+				ToShowUserAllBoard();
+				MovingMyBishopInXY1(delta_X_Cordinate, delta_Y_cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, INPUT_str);
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (INPUT_str == "LH") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				KnightMoveableOrNot(delta_X_Cordinate, delta_Y_cordinate);
+				ToShowUserAllBoard();
+				MovingMyHorseInXY(delta_X_Cordinate, delta_Y_cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, INPUT_str);
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (INPUT_str == "RH") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				CheckKnightMove1Location(delta_X_Cordinate, delta_Y_cordinate);
+				ToShowUserAllBoard();
+				MovingMyHorseInXY1(delta_X_Cordinate, delta_Y_cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, INPUT_str);
+				ToShowUserAllBoard();
+				break;
+			}
+
+		}
+		else if (condition_confirm % 2 != 0) {
+			cout << "Compiler Turn \n";
+			CompilerArrayInSetMode();
+			int random = rand() % TotalSizeoftheArray;
+			switch (ArrayOfComputerToStoreOptions[random] == ".k") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				ComputerMovingHisKing(delta_Y_cordinate, delta_X_Cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, ".k");
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (ArrayOfComputerToStoreOptions[random] == ".q") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				ComputerMovingHerQueen(delta_Y_cordinate, delta_X_Cordinate);
+				PlayingInitialPosition(delta_Y_cordinate, delta_X_Cordinate, ".q");
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (ArrayOfComputerToStoreOptions[random] == "lR") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				ComputerMovingHisRock(delta_Y_cordinate, delta_X_Cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, "lR");
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (ArrayOfComputerToStoreOptions[random] == "rR") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				ComputerMovingHisRock1(delta_Y_cordinate, delta_X_Cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, "rR");
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (ArrayOfComputerToStoreOptions[random] == "lB") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				ComputerMovingHisBishop(delta_Y_cordinate, delta_X_Cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, "lB");
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (ArrayOfComputerToStoreOptions[random] == "rB") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				ComputerMovingHisBishop1(delta_Y_cordinate, delta_X_Cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, "rB");
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (ArrayOfComputerToStoreOptions[random] == "lH") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				ComputerMovingHisHorse(delta_Y_cordinate, delta_X_Cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, "lH");
+				ToShowUserAllBoard();
+				break;
+			}
+			switch (ArrayOfComputerToStoreOptions[random] == "rH") {
+			case 1:
+				int delta_X_Cordinate = 0;
+				int delta_Y_cordinate = 0;
+				ComputerMovingHisHorse1(delta_Y_cordinate, delta_X_Cordinate);
+				PlayingInitialPosition(delta_X_Cordinate, delta_Y_cordinate, "rH");
+				ToShowUserAllBoard();
+				break;
+			}
+
+		}
+
+		condition_confirm++;
+		bool breaking_VAR = tonotPlay();
+		if (breaking_VAR == false) break;
+	}
+	return 0;
+}
+
+
+
+int main() {
+	startGame();
+}
